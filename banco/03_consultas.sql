@@ -131,3 +131,30 @@ LIMIT 10;
 --Quartos sem reservas
 --Listar quartos que nunca tiveram reserva.
 
+SELECT 
+    quartos.id_quarto AS quarto,
+    quartos.capacidade,
+    quartos.valor_diaria
+FROM quartos
+
+LEFT JOIN reservas
+ON reservas.quarto_id = quartos.id_quarto
+
+GROUP BY quartos.id_quarto,
+        quartos.capacidade,
+        quartos.valor_diaria
+
+HAVING COUNT(reservas.id_reserva) = 0;
+
+--Reservas por status
+--Apresentar cada status e a quantidade de reservas.
+SELECT
+
+    status,
+    COUNT(id_reserva) AS quantidade_de_reservas
+
+FROM reservas
+
+GROUP BY status
+
+ORDER BY quantidade_de_reservas DESC;
