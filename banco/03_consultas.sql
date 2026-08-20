@@ -94,3 +94,40 @@ GROUP BY servicos.id_servico,servicos.nome
 
 ORDER BY quantidade_total DESC;
 
+--Hóspedes que mais gastaram
+--Apresentar os 10 hóspedes com maior gasto, incluindo quantidade de reservas, hospedagem, serviços e total.
+
+SELECT
+    hospedes.nome,
+    COUNT(DISTINCT reservas.id_reserva) AS quantidade_de_reservas,
+    SUM(DISTINCT ((reservas.data_saida::date - reservas.data_entrada::date)* quartos.valor_diaria)) AS hospedagem
+    COALESCE (SUM(servicos.preco * sr.quantidade_utilizada)) AS servico,
+    SUM((DISTINCT ((reservas.data_saida::date - reservas.data_entrada::date)* quartos.valor_diaria))+ 
+    (COALESCE (SUM(servicos.preco * sr.quantidade_utilizada)))) AS total 
+
+FROM hospedes
+
+INNER JOIN reservas
+ON reservas.hospede_cpf = hospedes.cpf
+
+INNER JOIN quartos
+ON quartos.id_quarto = reservas.quarto_id
+
+INNER JOIN servicos_reservas AS sr
+ON sr.reserva_id = reservas.id_reserva
+
+INNER JOIN servicos
+ON servicos.id_servico = sr.servico_id
+
+INNER JOIN pagamentos AS pg
+ON pg.reserva_id = reservas.id_reserva
+
+GROUP BY hospedes.nome
+
+ORDER BY total DESC
+
+LIMIT 10;
+
+--Quartos sem reservas
+--Listar quartos que nunca tiveram reserva.
+
