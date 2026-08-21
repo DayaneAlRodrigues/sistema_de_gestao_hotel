@@ -87,7 +87,7 @@ $stmt = $pdo->query($sql);
 <div id="form-hospede" class="card form-card p-4">
   <h2 class="h5">Cadastrar hóspede</h2>
   <div class="endpoint mb-3">POST /hospedes/salvar.php — ajuste o action para o seu backend.</div>
-  <form action="hospedes/salvar.php" method="post">
+  <form action="../../hospedes/salvar.php" method="post">
     <div class="row g-3">
       <div class="col-md-6"><label class="form-label">Nome</label><input class="form-control" name="nome" required></div>
       <div class="col-md-6"><label class="form-label">CPF</label><input class="form-control" name="cpf" required></div>
