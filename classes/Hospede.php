@@ -167,12 +167,65 @@ class Hospede
         }
     }
 
-    /*public function excluir(PDO $pdo): bool{
+    public function excluir(PDO $pdo): bool
+    {
+        try {
 
-    }*/
+            $pdo->beginTransaction();
+
+            // Verifica se existem reservas para o hóspede
+            $sqlReserva = "SELECT COUNT(*)
+                       FROM reservas
+                       WHERE hospede_cpf = :cpf";
+
+            $stmtReserva = $pdo->prepare($sqlReserva);
+
+            $stmtReserva->execute([
+                ':cpf' => $this->cpf
+            ]);
+
+            $quantidadeReservas = $stmtReserva->fetchColumn();
+
+            if ($quantidadeReservas > 0) {
+                $pdo->rollBack();
+                echo "Hóspede possui reservas, não é possível excluir-lo. <br>";
+                return false;
+            }
+
+            $sqlTelefone = "DELETE FROM telefones
+                        WHERE hospede_cpf = :cpf";
+
+            $stmtTelefone = $pdo->prepare($sqlTelefone);
+
+            $stmtTelefone->execute([
+                ':cpf' => $this->cpf
+            ]);
+
+            $sqlHospede = "DELETE FROM hospedes
+                       WHERE cpf = :cpf";
+
+            $stmtHospede = $pdo->prepare($sqlHospede);
+
+            $stmtHospede->execute([
+                ':cpf' => $this->cpf
+            ]);
+
+            $pdo->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+
+            return false;
+        }
+    }
 
 
-    
+
 }
 
 ?>
