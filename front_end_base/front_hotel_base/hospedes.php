@@ -1,19 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../../config/Database.php';
-$sql = "SELECT 
-            h.cpf, 
-            h.nome, 
-            t.numero,
-            h.email 
-        FROM hospedes AS h
-        
-        LEFT JOIN telefones AS t
-        ON t.hospede_cpf = h.cpf
-        
-        ORDER BY h.nome ASC";
+require_once '../../classes/Hospede.php';
 
-$stmt = $pdo->query($sql);
-
+$hospedes = Hospede::listar($pdo);
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -57,28 +50,32 @@ $stmt = $pdo->query($sql);
     <table class="table table-hover mb-0">
       <thead><tr><th>Nome</th><th>CPF</th><th>Telefone</th><th>E-mail</th><th class="text-end">Ações</th></tr></thead>
       <tbody>
-        <?php while ($row =$stmt->fetch(PDO::FETCH_ASSOC)) : ?> 
+        <?php foreach ($hospedes as $hospede) : ?> 
         <tr><td>
-          <?= htmlspecialchars($row['nome']) ?>
+          <?= htmlspecialchars($hospede['nome']) ?>
         </td>
         <td>
-          <?= htmlspecialchars($row['cpf']) ?>
+          <?= htmlspecialchars($hospede['cpf']) ?>
         </td>
         <td>
-          <?= htmlspecialchars($row['numero']) ?>
+          <?= htmlspecialchars($hospede['numero'] ?? '') ?>
         </td>
         <td>
-          <?= htmlspecialchars($row['email']) ?>
+          <?= htmlspecialchars($hospede['email']) ?>
         </td>
         <td class="text-end">
         <button class="btn btn-sm btn-outline-primary">
+          <a href="form_update_hospede.php?cpf=<?= $hospede['cpf'] ?>">
           Editar
+        </a>
         </button> 
         <button class="btn btn-sm btn-outline-danger">
+          <a href="../../hospedes/delete.php?cpf=<?= $hospede['cpf'] ?>">
           Excluir
+          </a>
         </button>
         </td></tr>
-          <?php endwhile; ?>
+          <?php endforeach; ?>
       </tbody>
     </table>
   </div>
