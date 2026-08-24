@@ -9,22 +9,22 @@ class Quarto
     private int $capacidade;
     private float $valorDiaria;
     private string $status;
-    private string $tipoId;
+    private string $tipo;
 
     public function __construct(
         int $numero,
         int $capacidade,
         float $valorDiaria,
         string $status,
-        string $tipoId
+        string $tipo
     ) {
         $this->numero = $numero;
         $this->capacidade = $capacidade;
         $this->valorDiaria = $valorDiaria;
         $this->status = $status;
-        $this->tipoId = $tipoId;
+        $this->tipo = $tipo;
     }
-    public function geNumero(): int
+    public function getNumero(): int
     {
         return $this->numero;
     }
@@ -40,9 +40,9 @@ class Quarto
     {
         return $this->status;
     }
-    public function getTipoId(): int
+    public function getTipo(): string
     {
-        return $this->tipoId;
+        return $this->tipo;
     }
     public function cadastrar(PDO $pdo): bool
     {
@@ -54,7 +54,7 @@ class Quarto
                         WHERE nome=:nome";
             $stmtTipo = $pdo->prepare($sqlTipo);
             $stmtTipo->execute([
-                ':nome' => $this->tipoId
+                ':nome' => $this->tipo
             ]);
 
             $idTipo = $stmtTipo->fetchColumn();
@@ -99,6 +99,86 @@ class Quarto
             die("Erro parar buscar quartos." . $e->getMessage());
 
         }
+    }
+
+    public static function buscarPorNumero(PDO $pdo, int $numero): ?Quarto
+    {
+        try {
+            $sql = "SELECT 
+                        q.id_quarto AS numero, 
+                        t.nome AS tipo,
+                        q.capacidade, 
+                        q.valor_diaria, 
+                        q.status
+                    FROM quartos AS q
+                    
+                    LEFT JOIN tipos_de_quartos AS t
+                    ON t.id_tipo_de_quarto = q.tipo_id
+                    
+                    WHERE q.id_quarto = :numero; 
+                        ";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ":numero" => $numero
+            ]);
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$dados) {
+                return null;
+            }
+
+            return new Quarto(
+                (int) $dados['numero'],
+                (int) $dados['capacidade'],
+                (float) $dados['valor_diaria'],
+                $dados['status'],
+                $dados['tipo']
+            );
+        } catch (PDOException $e) {
+            die("Erro ao buscar quarto. " . $e->getMessage());
+        }
+
+    }
+
+    public function atualizar(PDO $pdo): bool
+    {
+        try {
+            $pdo->beginTransaction();
+            //verificar qual o id do tipo de quarto corresponde a string 
+            $sqlTipo = "SELECT id_tipo_de_quarto
+                        FROM tipos_de_quartos
+                        WHERE nome=:nome";
+            $stmtTipo = $pdo->prepare($sqlTipo);
+            $stmtTipo->execute([
+                ':nome' => $this->tipo
+            ]);
+
+            $idTipo = $stmtTipo->fetchColumn();
+
+            $sql = "UPDATE quartos
+                    SET capacidade=:capacidade,
+                        valor_diaria=:valor_diaria, 
+                        status=:status, 
+                        tipo_id=:tipo
+                    WHERE id_quarto=:numero;";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ":capacidade" => $this->capacidade,
+                ":valor_diaria" => $this->valorDiaria,
+                ":status" => $this->status,
+                ":tipo" => $idTipo,
+                ":numero"=> $this->numero
+            ]);
+            $pdo->commit();
+            return true;
+        } catch (PDOException $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+
+            return false;
+        }
+
     }
 
 }

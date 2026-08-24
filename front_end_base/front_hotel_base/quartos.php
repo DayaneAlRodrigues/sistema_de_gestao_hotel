@@ -65,7 +65,12 @@ $quartos = Quarto :: listar($pdo);
       <td><span class="badge text-bg-success">
         <?= htmlspecialchars($quarto['status']) ?>
       </span></td>
-      <td class="text-end"><button class="btn btn-sm btn-outline-primary">Editar</button> 
+      <td class="text-end">
+        <button class="btn btn-sm btn-outline-primary">
+        <a href="form_update_quarto.php?numero=<?= $quarto['numero'] ?>">
+        Editar
+        </a>
+      </button> 
       <button class="btn btn-sm btn-outline-danger">Excluir</button></td></tr>
       <?php endforeach; ?>
       </tbody>
