@@ -50,7 +50,7 @@
 <div id="form-quarto" class="card form-card p-4">
   <h2 class="h5">Cadastrar quarto</h2>
   <div class="endpoint mb-3">POST /quartos/salvar.php — ajuste o action para o seu backend.</div>
-  <form action="quartos/salvar.php" method="post">
+  <form action="../../quartos/salvar.php" method="post">
     <div class="row g-3">
       <div class="col-md-4"><label class="form-label">Número</label><input class="form-control" name="numero" required></div>
       <div class="col-md-4"><label class="form-label">Tipo</label><select class="form-select" name="tipo_id" required><option value="">Selecione...</option><option>Individual</option><option>Duplo</option><option>Triplo</option><option>Suíte</option></select></div>
