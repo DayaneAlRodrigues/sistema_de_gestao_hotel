@@ -37,10 +37,16 @@ class Servico
     {
         return $this->preco;
     }
-    public function getsituacao(): bool{
+    public function getsituacao(): bool
+    {
         return $this->situacao;
     }
-    public function cadastrar(PDO $pdo): bool{
+    public function setIdServico(int $idServico): void
+    {
+        $this->idServico = $idServico;
+    }
+    public function cadastrar(PDO $pdo): bool
+    {
 
         try {
             $pdo->beginTransaction();
@@ -53,7 +59,7 @@ class Servico
                 ':nome' => $this->nome,
                 ':descricao' => $this->descricao,
                 ':preco' => $this->preco,
-                ':situacao'=>$this->situacao
+                ':situacao' => $this->situacao
             ]);
             $this->idServico = (int) $stmt->fetchColumn();
 
@@ -108,7 +114,7 @@ class Servico
                 return null;
             }
 
-            $servico= new Servico(
+            $servico = new Servico(
                 $dados['nome'],
                 $dados['descricao'],
                 $dados['preco'],
@@ -140,10 +146,10 @@ class Servico
 
             $stmt->execute([
                 ':nome' => $this->nome,
-                ':descricao'=> $this->descricao,
-                ':preco'=> $this->preco,
-                ':situacao'=>$this->situacao,
-                ':id_servico'=>$this->idServico
+                ':descricao' => $this->descricao,
+                ':preco' => $this->preco,
+                ':situacao' => $this->situacao,
+                ':id_servico' => $this->idServico
             ]);
 
             $pdo->commit();

@@ -62,7 +62,7 @@ $servicos = Servico::listar($pdo);
           <?= htmlspecialchars($servico['situacao']) ?></span>
         </td><td class="text-end">
           <button class="btn btn-sm btn-outline-primary">
-            <a href="../../hospedes/delete.php?id_servico=<?= $servico['id_servico'] ?>">
+            <a href="form_update_servico.php?id_servico=<?= $servico['id_servico'] ?>">
             Editar
           </a></button> 
             <button class="btn btn-sm btn-outline-danger">
