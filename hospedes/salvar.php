@@ -9,7 +9,13 @@
         
         $novoHospede = new Hospede($cpf,$nome,$telefone,$email);
 
-        $novoHospede->cadastrar($pdo);
+        if($novoHospede->cadastrar($pdo)){
+            header('Location: ../front_end_base/front_hotel_base/hospedes.php');
+            exit;
+        } else {
+            echo "Erro ao cadastrar hóspede.";
+        }
+
 
     }
 ?>

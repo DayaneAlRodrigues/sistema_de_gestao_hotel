@@ -26,11 +26,11 @@ $quartos = Quarto :: listar($pdo);
     </button>
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link " href="index.html">Início</a></li>
-        <li class="nav-item"><a class="nav-link " href="hospedes.html">Hóspedes</a></li>
-        <li class="nav-item"><a class="nav-link active" href="quartos.html">Quartos</a></li>
-        <li class="nav-item"><a class="nav-link " href="servicos.html">Serviços</a></li>
-        <li class="nav-item"><a class="nav-link " href="reservas.html">Reservas</a></li>
+        <li class="nav-item"><a class="nav-link " href="index.php">Início</a></li>
+        <li class="nav-item"><a class="nav-link " href="hospedes.php">Hóspedes</a></li>
+        <li class="nav-item"><a class="nav-link active" href="quartos.php">Quartos</a></li>
+        <li class="nav-item"><a class="nav-link " href="servicos.php">Serviços</a></li>
+        <li class="nav-item"><a class="nav-link " href="reservas.php">Reservas</a></li>
       </ul>
     </div>
   </div>

@@ -17,25 +17,38 @@ if ($hospede === null) {
 
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Editar Hóspede | Hotel Admin</title>
-
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="../front_end_base/front_hotel_base/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quartos | Hotel Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-hotel">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">🏨 Hotel Admin</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link " href="index.php">Início</a></li>
+          <li class="nav-item"><a class="nav-link " href="hospedes.php">Hóspedes</a></li>
+          <li class="nav-item"><a class="nav-link active" href="quartos.php">Quartos</a></li>
+          <li class="nav-item"><a class="nav-link " href="servicos.php">Serviços</a></li>
+          <li class="nav-item"><a class="nav-link " href="reservas.php">Reservas</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4 py-lg-5">
 <div id="form-update-hospede" class="card form-card p-4">
 
     <h2 class="h5">Editar hóspede</h2>
@@ -96,6 +109,9 @@ if ($hospede === null) {
     </form>
 
 </div>
-
+</main><footer class="container pb-4 text-center">
+  Base de front-end para o exercício de PHP + PostgreSQL + PDO
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

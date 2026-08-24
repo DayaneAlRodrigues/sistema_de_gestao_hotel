@@ -17,11 +17,11 @@
     </button>
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="index.html">Início</a></li>
-        <li class="nav-item"><a class="nav-link " href="hospedes.html">Hóspedes</a></li>
-        <li class="nav-item"><a class="nav-link " href="quartos.html">Quartos</a></li>
-        <li class="nav-item"><a class="nav-link " href="servicos.html">Serviços</a></li>
-        <li class="nav-item"><a class="nav-link " href="reservas.html">Reservas</a></li>
+        <li class="nav-item"><a class="nav-link active" href="index.php">Início</a></li>
+        <li class="nav-item"><a class="nav-link " href="hospedes.php">Hóspedes</a></li>
+        <li class="nav-item"><a class="nav-link " href="quartos.php">Quartos</a></li>
+        <li class="nav-item"><a class="nav-link " href="servicos.php">Serviços</a></li>
+        <li class="nav-item"><a class="nav-link " href="reservas.php">Reservas</a></li>
       </ul>
     </div>
   </div>
@@ -48,9 +48,9 @@
       <h2 class="h5">Cadastros</h2>
       <p class="text-muted">Implemente os CRUDs no PHP e conecte os formulários abaixo aos seus endpoints.</p>
       <div class="d-flex flex-wrap gap-2">
-        <a href="hospedes.html" class="btn btn-hotel">Hóspedes</a>
-        <a href="quartos.html" class="btn btn-outline-secondary">Quartos</a>
-        <a href="servicos.html" class="btn btn-outline-secondary">Serviços</a>
+        <a href="hospedes.php" class="btn btn-hotel">Hóspedes</a>
+        <a href="quartos.php" class="btn btn-outline-secondary">Quartos</a>
+        <a href="servicos.php" class="btn btn-outline-secondary">Serviços</a>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
     <div class="card p-4 h-100">
       <h2 class="h5">Reservas</h2>
       <p class="text-muted">A reserva relaciona hóspede, quarto, período e status.</p>
-      <a href="reservas.html" class="btn btn-gold">Gerenciar reservas</a>
+      <a href="reservas.php" class="btn btn-gold">Gerenciar reservas</a>
     </div>
   </div>
 </div>

@@ -42,14 +42,12 @@ hotel-pousada/
 ├── servicos/
 │   ├── index.php
 │   ├── salvar.php
-│   ├── editar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
 ├── reservas/
 │   ├── index.php
 │   ├── salvar.php
-│   ├── editar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
