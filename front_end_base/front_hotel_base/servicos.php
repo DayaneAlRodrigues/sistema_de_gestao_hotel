@@ -1,4 +1,13 @@
-<!doctype html>
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once '../../config/Database.php';
+require_once '../../classes/Servico.php';
+
+$servicos = Servico::listar($pdo);
+?><!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -40,8 +49,28 @@
     <table class="table table-hover mb-0">
       <thead><tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço</th><th>Status</th><th class="text-end">Ações</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>Café da manhã</td><td>Serviço de café</td><td>R$ 35,00</td><td><span class="badge text-bg-success">Ativo</span></td><td class="text-end"><button class="btn btn-sm btn-outline-primary">Editar</button> <button class="btn btn-sm btn-outline-danger">Excluir</button></td></tr>
-        <tr><td colspan="6" class="text-center text-muted py-4">Substitua estes dados pelo retorno do PHP.</td></tr>
+        <?php foreach ($servicos as $servico) : ?> 
+        <tr><td>
+          <?= htmlspecialchars($servico['id_servico']) ?>
+        </td><td>
+          <?= htmlspecialchars($servico['nome']) ?>
+        </td><td>
+          <?= htmlspecialchars($servico['descricao']) ?>
+        </td><td>
+          <?= htmlspecialchars($servico['preco']) ?>
+        </td><td><span class="badge text-bg-success">
+          <?= htmlspecialchars($servico['situacao']) ?></span>
+        </td><td class="text-end">
+          <button class="btn btn-sm btn-outline-primary">
+            <a href="../../hospedes/delete.php?id_servico=<?= $servico['id_servico'] ?>">
+            Editar
+          </a></button> 
+            <button class="btn btn-sm btn-outline-danger">
+              <a href="../../servicos/excluir.php?id_servico=<?= $servico['id_servico'] ?>">
+              Excluir
+            </a></button></td></tr>
+        
+      <?php endforeach; ?>
       </tbody>
     </table>
   </div>

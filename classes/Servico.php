@@ -108,13 +108,15 @@ class Servico
                 return null;
             }
 
-            return new Servico(
-                $dados['id_servico'],
+            $servico= new Servico(
                 $dados['nome'],
                 $dados['descricao'],
                 $dados['preco'],
                 $dados['situacao']
             );
+
+            $servico->idServico = (int) $dados['id_servico'];
+            return $servico;
 
         } catch (PDOException $e) {
             die("Erro ao buscar serviço. " . $e->getMessage());
