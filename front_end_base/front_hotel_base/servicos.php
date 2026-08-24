@@ -50,7 +50,7 @@
 <div id="form-servico" class="card form-card p-4">
   <h2 class="h5">Cadastrar serviço</h2>
   <div class="endpoint mb-3">POST /servicos/salvar.php — ajuste o action para o seu backend.</div>
-  <form action="servicos/salvar.php" method="post">
+  <form action="../../servicos/salvar.php" method="post">
     <div class="row g-3">
       <div class="col-md-6"><label class="form-label">Nome</label><input class="form-control" name="nome" required></div>
       <div class="col-md-6"><label class="form-label">Preço</label><input class="form-control" type="number" min="0" step="0.01" name="preco" required></div>
