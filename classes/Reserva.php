@@ -155,8 +155,8 @@ class Reserva
             }
 
             $reserva = new Reserva(
-                $dados['data_entrada'],
-                $dados['data_saida'],
+                new DateTime($dados['data_entrada']),
+                new DateTime($dados['data_saida']),
                 $dados['quantidade_hospedes'],
                 $dados['status'],
                 $dados['observacao'],
