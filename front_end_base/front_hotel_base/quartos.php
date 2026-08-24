@@ -1,3 +1,12 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once '../../config/Database.php';
+require_once '../../classes/Quarto.php';
+
+$quartos = Quarto :: listar($pdo);
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -38,10 +47,27 @@
   <div class="card-header bg-white fw-semibold">Quartos cadastrados</div>
   <div class="table-responsive">
     <table class="table table-hover mb-0">
-      <thead><tr><th>ID</th><th>Número</th><th>Tipo</th><th>Capacidade</th><th>Diária</th><th>Status</th><th class="text-end">Ações</th></tr></thead>
+      <thead><tr><th>Número</th><th>Tipo</th><th>Capacidade</th><th>Diária</th><th>Status</th><th class="text-end">Ações</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>101</td><td>Suíte</td><td>2</td><td>R$ 350,00</td><td><span class="badge text-bg-success">Disponível</span></td><td class="text-end"><button class="btn btn-sm btn-outline-primary">Editar</button> <button class="btn btn-sm btn-outline-danger">Excluir</button></td></tr>
-        <tr><td colspan="7" class="text-center text-muted py-4">Substitua estes dados pelo retorno do PHP.</td></tr>
+        <?php foreach ($quartos as $quarto) : ?>
+        <tr><td>
+          <?= htmlspecialchars($quarto['numero']) ?>
+          
+      </td><td>
+        <?= htmlspecialchars($quarto['tipo']) ?>
+      </td>
+      <td>
+        <?= htmlspecialchars($quarto['capacidade']) ?>
+      </td>
+      <td>
+        <?= htmlspecialchars($quarto['valor_diaria']) ?>
+      </td>
+      <td><span class="badge text-bg-success">
+        <?= htmlspecialchars($quarto['status']) ?>
+      </span></td>
+      <td class="text-end"><button class="btn btn-sm btn-outline-primary">Editar</button> 
+      <button class="btn btn-sm btn-outline-danger">Excluir</button></td></tr>
+      <?php endforeach; ?>
       </tbody>
     </table>
   </div>
