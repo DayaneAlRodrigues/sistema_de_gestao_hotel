@@ -22,7 +22,6 @@ hotel-pousada/
 ├── classes/
 │   ├── Hospede.php
 │   ├── Quarto.php
-│   ├── TipoQuarto.php
 │   ├── Servico.php
 │   ├── Reserva.php
 │   └── Pagamento.php
@@ -30,23 +29,15 @@ hotel-pousada/
 ├── hospedes/
 │   ├── index.php
 │   ├── salvar.php
-│   ├── editar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
 ├── quartos/
 │   ├── index.php
 │   ├── salvar.php
-│   ├── editar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
-├── tipos-quartos/
-│   ├── index.php
-│   ├── salvar.php
-│   ├── editar.php
-│   ├── atualizar.php
-│   └── excluir.php
 │
 ├── servicos/
 │   ├── index.php

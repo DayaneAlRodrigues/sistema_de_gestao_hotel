@@ -71,7 +71,11 @@ $quartos = Quarto :: listar($pdo);
         Editar
         </a>
       </button> 
-      <button class="btn btn-sm btn-outline-danger">Excluir</button></td></tr>
+      <button class="btn btn-sm btn-outline-danger">
+        <a href="../../quartos/excluir.php?numero=<?= $quarto['numero'] ?>">
+        Excluir
+        </a>
+      </button></td></tr>
       <?php endforeach; ?>
       </tbody>
     </table>

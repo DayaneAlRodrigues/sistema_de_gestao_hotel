@@ -180,6 +180,52 @@ class Quarto
         }
 
     }
+    public function excluir(PDO $pdo): bool
+    {
+        try {
+
+            $pdo->beginTransaction();
+
+            // Verifica se existem reservas para o quarto
+            $sqlReserva = "SELECT COUNT(*)
+                       FROM reservas
+                       WHERE quarto_id = :numero";
+
+            $stmtReserva = $pdo->prepare($sqlReserva);
+
+            $stmtReserva->execute([
+                ':numero' => $this->numero
+            ]);
+
+            $quantidadeReservas = $stmtReserva->fetchColumn();
+
+            if ($quantidadeReservas > 0) {
+                $pdo->rollBack();
+                echo "Quarto possui reservas, não é possível excluir-lo. <br>";
+                return false;
+            }
+
+            $sql = "DELETE FROM quartos
+                    WHERE id_quarto=:numero";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ":numero"=>$this->numero
+            ]);
+
+            $pdo->commit();
+
+            return true;
+
+        } catch (PDOException $e) {
+
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+
+            return false;
+        }
+    }
+
 
 }
 
