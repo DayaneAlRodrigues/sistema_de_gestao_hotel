@@ -7,7 +7,7 @@ class Reserva
     private ?int $idReserva = null;
     private DateTime $dataEntrada;
     private DateTime $dataSaida;
-    
+
     private int $quantidade;
     private string $status;
     private string $observacao;
@@ -52,17 +52,21 @@ class Reserva
     {
         return $this->status;
     }
-    public function getObservacao(): string{
+    public function getObservacao(): string
+    {
         return $this->observacao;
     }
-    public function gethospedeCpf(): string{
+    public function gethospedeCpf(): string
+    {
         return $this->hospedeCpf;
     }
-    public function getquartoId(): int{
+    public function getquartoId(): int
+    {
         return $this->quartoId;
     }
 
-    public function getHospedeNome():string{
+    public function getHospedeNome(): string
+    {
         return $this->hospedeNome;
     }
     public function setIdReserva(int $idReserva): void
@@ -70,7 +74,8 @@ class Reserva
         $this->idReserva = $idReserva;
     }
 
-    public function setHospedeNome(string $hospedeNome): void{
+    public function setHospedeNome(string $hospedeNome): void
+    {
         $this->hospedeNome = $hospedeNome;
     }
     public function cadastrar(PDO $pdo): bool
@@ -88,12 +93,12 @@ class Reserva
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':dataEntrada' => $this->dataEntrada->format('Y-m-d H:i:s'),
-                ':dataSaida'   => $this->dataSaida->format('Y-m-d H:i:s'),
+                ':dataSaida' => $this->dataSaida->format('Y-m-d H:i:s'),
                 ':quantidade' => $this->quantidade,
                 ':status' => $this->status,
-                ':observacao'=>$this->observacao,
-                ':hospede_cpf'=> $this->hospedeCpf,
-                ':quarto_id'=>$this->quartoId
+                ':observacao' => $this->observacao,
+                ':hospede_cpf' => $this->hospedeCpf,
+                ':quarto_id' => $this->quartoId
             ]);
             $this->idReserva = (int) $stmt->fetchColumn();
             $pdo->commit();
@@ -105,9 +110,9 @@ class Reserva
     }
 
     public static function listar(PDO $pdo): array
-{
-    try {
-        $sql = "SELECT 
+    {
+        try {
+            $sql = "SELECT 
                     r.id_reserva,
                     r.data_entrada,
                     r.data_saida,
@@ -128,14 +133,14 @@ class Reserva
 
                 ORDER BY r.data_entrada ASC";
 
-        $stmt = $pdo->query($sql);
+            $stmt = $pdo->query($sql);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    } catch (PDOException $e) {
-        die("Erro ao buscar dados das reservas: " . $e->getMessage());
+        } catch (PDOException $e) {
+            die("Erro ao buscar dados das reservas: " . $e->getMessage());
+        }
     }
-}
     public static function buscarPorId(PDO $pdo, string $id): ?Reserva
     {
         try {
@@ -161,7 +166,7 @@ class Reserva
                 WHERE r.id_reserva = :id
 
                 ORDER BY r.data_entrada ASC";
-                    
+
 
             $stmt = $pdo->prepare($sql);
 
@@ -199,7 +204,7 @@ class Reserva
         try {
             $pdo->beginTransaction();
 
-            $sql= "UPDATE reservas
+            $sql = "UPDATE reservas
                     SET data_entrada=:data_entrada, 
                         data_saida=:data_saida, 
                         quantidade_hospedes=:quantidade, 
@@ -217,9 +222,9 @@ class Reserva
                 ':quantidade' => $this->quantidade,
                 ':status' => $this->status,
                 ':observacao' => $this->observacao,
-                ':hospede'=> $this->hospedeCpf,
-                ':quarto'=>$this->quartoId,
-                ':id_reserva'=> $this->idReserva
+                ':hospede' => $this->hospedeCpf,
+                ':quarto' => $this->quartoId,
+                ':id_reserva' => $this->idReserva
             ]);
 
             $pdo->commit();
@@ -263,6 +268,15 @@ class Reserva
 
             return false;
         }
+    }
+
+    public static function contar(PDO $pdo): int
+    {
+        $sql = "SELECT COUNT(*) FROM reservas";
+
+        $stmt = $pdo->query($sql);
+
+        return (int) $stmt->fetchColumn();
     }
 
 

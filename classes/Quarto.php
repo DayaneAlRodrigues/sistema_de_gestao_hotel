@@ -167,7 +167,7 @@ class Quarto
                 ":valor_diaria" => $this->valorDiaria,
                 ":status" => $this->status,
                 ":tipo" => $idTipo,
-                ":numero"=> $this->numero
+                ":numero" => $this->numero
             ]);
             $pdo->commit();
             return true;
@@ -209,7 +209,7 @@ class Quarto
                     WHERE id_quarto=:numero";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                ":numero"=>$this->numero
+                ":numero" => $this->numero
             ]);
 
             $pdo->commit();
@@ -224,6 +224,15 @@ class Quarto
 
             return false;
         }
+    }
+
+    public static function contar(PDO $pdo): int
+    {
+        $sql = "SELECT COUNT(*) FROM quartos";
+
+        $stmt = $pdo->query($sql);
+
+        return (int) $stmt->fetchColumn();
     }
 
 

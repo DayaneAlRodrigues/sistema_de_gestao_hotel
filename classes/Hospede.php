@@ -224,6 +224,15 @@ class Hospede
         }
     }
 
+    public static function contar(PDO $pdo): int
+    {
+        $sql = "SELECT COUNT(*) FROM hospedes";
+
+        $stmt = $pdo->query($sql);
+
+        return (int) $stmt->fetchColumn();
+    }
+
 
 
 }

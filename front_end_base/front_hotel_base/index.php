@@ -1,3 +1,17 @@
+<?php
+
+require_once '../../config/Database.php';
+require_once '../../classes/Hospede.php';
+require_once '../../classes/Quarto.php';
+require_once '../../classes/Reserva.php';
+require_once '../../classes/Servico.php';
+
+$totalHospedes = Hospede::contar($pdo);
+$totalQuartos = Quarto::contar($pdo);
+$totalReservas = Reserva::contar($pdo);
+$totalServicos = Servico::contar($pdo);
+
+?>
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -36,10 +50,10 @@
 </section>
 
 <div class="row g-3 mb-4">
-  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">HÓSPEDES</small><div class="stat-number">--</div><small>retorno do banco</small></div></div>
-  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">QUARTOS</small><div class="stat-number">--</div><small>retorno do banco</small></div></div>
-  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">RESERVAS</small><div class="stat-number">--</div><small>retorno do banco</small></div></div>
-  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">SERVIÇOS</small><div class="stat-number">--</div><small>retorno do banco</small></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">HÓSPEDES</small><div class="stat-number"><?= $totalHospedes ?></div><small>retorno do banco</small></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">QUARTOS</small><div class="stat-number"><?= $totalQuartos ?></div><small>retorno do banco</small></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">RESERVAS</small><div class="stat-number"><?= $totalReservas ?></div><small>retorno do banco</small></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small class="text-muted">SERVIÇOS</small><div class="stat-number"><?= $totalServicos ?></div><small>retorno do banco</small></div></div>
 </div>
 
 <div class="row g-4">

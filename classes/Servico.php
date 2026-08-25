@@ -213,6 +213,14 @@ class Servico
             return false;
         }
     }
+    public static function contar(PDO $pdo): int
+    {
+        $sql = "SELECT COUNT(*) FROM servicos";
+
+        $stmt = $pdo->query($sql);
+
+        return (int) $stmt->fetchColumn();
+    }
 
 
 
