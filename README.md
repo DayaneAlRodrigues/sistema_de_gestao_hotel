@@ -1,5 +1,6 @@
 # sistema_de_gestao_hotel
-Sistema de gestão de hotel para praticar o backend com php
+Sistema de gestão de hotel para praticar o backend com 
+O front-end foi fornecido pela professora e desenvolvi: a modelagem do banco, criação dos scripts sql e o back end.
 
 ## 📁 Estrutura do Projeto
 
@@ -27,34 +28,23 @@ hotel-pousada/
 │   └── Pagamento.php
 │
 ├── hospedes/
-│   ├── index.php
 │   ├── salvar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
 ├── quartos/
-│   ├── index.php
 │   ├── salvar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
 │
 ├── servicos/
-│   ├── index.php
 │   ├── salvar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
 ├── reservas/
-│   ├── index.php
 │   ├── salvar.php
-│   ├── atualizar.php
-│   └── excluir.php
-│
-├── pagamentos/
-│   ├── index.php
-│   ├── salvar.php
-│   ├── editar.php
 │   ├── atualizar.php
 │   └── excluir.php
 │
