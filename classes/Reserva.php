@@ -13,6 +13,7 @@ class Reserva
     private string $observacao;
     private string $hospedeCpf;
     private int $quartoId;
+    private string $hospedeNome;
 
     public function __construct(
         DateTime $dataEntrada,
@@ -54,15 +55,23 @@ class Reserva
     public function getObservacao(): string{
         return $this->observacao;
     }
-    public function gethospedeCpf(): int{
+    public function gethospedeCpf(): string{
         return $this->hospedeCpf;
     }
     public function getquartoId(): int{
         return $this->quartoId;
     }
+
+    public function getHospedeNome():string{
+        return $this->hospedeNome;
+    }
     public function setIdReserva(int $idReserva): void
     {
         $this->idReserva = $idReserva;
+    }
+
+    public function setHospedeNome(string $hospedeNome): void{
+        $this->hospedeNome = $hospedeNome;
     }
     public function cadastrar(PDO $pdo): bool
     {
@@ -131,16 +140,28 @@ class Reserva
     {
         try {
             $sql = "SELECT 
-                        id_reserva, 
-                        data_entrada, 
-                        data_saida, 
-                        quantidade_hospedes, 
-                        status, 
-                        observacao, 
-                        hospede_cpf, 
-                        quarto_id
-                    FROM reservas
-                    WHERE id_reserva = :id";
+                    r.id_reserva,
+                    r.data_entrada,
+                    r.data_saida,
+                    r.quantidade_hospedes,
+                    r.status,
+                    r.observacao,
+                    r.hospede_cpf,
+                    r.quarto_id,
+                    h.nome AS hospede_nome,
+                    q.id_quarto AS quarto_numero
+                FROM reservas AS r
+
+                INNER JOIN hospedes AS h
+                    ON h.cpf = r.hospede_cpf
+
+                INNER JOIN quartos AS q
+                    ON q.id_quarto = r.quarto_id
+
+                WHERE r.id_reserva = :id
+
+                ORDER BY r.data_entrada ASC";
+                    
 
             $stmt = $pdo->prepare($sql);
 
@@ -164,7 +185,8 @@ class Reserva
                 $dados['quarto_id']
             );
 
-            $reserva->idReserva = (int) $dados['id_reserva'];
+            $reserva->setIdReserva($dados['id_reserva']);
+            $reserva->setHospedeNome($dados['hospede_nome']);
             return $reserva;
 
         } catch (PDOException $e) {
@@ -190,14 +212,14 @@ class Reserva
             $stmt = $pdo->prepare($sql);
 
             $stmt->execute([
-                ':data_entrada' => $this->dataEntrada,
-                ':data_saida' => $this->dataSaida,
+                ':data_entrada' => $this->dataEntrada->format('Y-m-d H:i:s'),
+                ':data_saida' => $this->dataSaida->format('Y-m-d H:i:s'),
                 ':quantidade' => $this->quantidade,
                 ':status' => $this->status,
                 ':observacao' => $this->observacao,
                 ':hospede'=> $this->hospedeCpf,
                 ':quarto'=>$this->quartoId,
-                ':id_reserva'=> $this->reserva
+                ':id_reserva'=> $this->idReserva
             ]);
 
             $pdo->commit();

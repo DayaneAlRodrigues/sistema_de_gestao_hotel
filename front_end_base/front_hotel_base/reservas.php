@@ -86,7 +86,9 @@ $quartos = Quarto::listar($pdo);
                 <td><span class="badge text-bg-primary">
                     <?= htmlspecialchars($reserva['status']) ?>
                   </span></td>
-                <td class="text-end"><button class="btn btn-sm btn-outline-primary">Editar</button> 
+                <td class="text-end"><button class="btn btn-sm btn-outline-primary">
+                <a href="form_update_reserva.php?id_reserva=<?= $reserva['id_reserva']?>">  
+                Editar</a></button> 
                 <button class="btn btn-sm btn-outline-danger">
                   <a href="../../reservas/excluir.php?id_reserva=<?= $reserva['id_reserva'] ?>">
                   Excluir
